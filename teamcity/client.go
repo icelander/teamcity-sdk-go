@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/Cardfree/teamcity-sdk-go/types"
 )
@@ -29,12 +30,14 @@ func New(host, username, password string, version string) *Client {
 		version = "latest"
 	}
 	return &Client{
-		HTTPClient: http.DefaultClient,
-		username:   username,
-		password:   password,
-		host:       host,
-		version:    version,
-		retries:    8,
+		HTTPClient: &http.Client{
+			Timeout: time.Second * 2,
+		},
+		username: username,
+		password: password,
+		host:     host,
+		version:  version,
+		retries:  8,
 	}
 }
 
@@ -274,8 +277,7 @@ func (c *Client) doNotJSONRequest(method string, path string, accept string, mim
 	}
 	authURL := fmt.Sprintf("%s%s%s", prefix, host, path)
 
-	log.Printf("%s %s\n", method, authURL)
-	fmt.Printf("%s %s\n", method, authURL)
+	log.Printf("[TRACE] %s %s\n", method, authURL)
 
 	req, _ := http.NewRequest(method, authURL, body)
 	req.SetBasicAuth(c.username, c.password)
