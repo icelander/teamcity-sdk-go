@@ -112,6 +112,24 @@ func (c *Client) GetBuild(buildID string) (*types.Build, error) {
 	return build, nil
 }
 
+// GetBuilds finds all the builds
+func (c *Client) GetBuilds() ([]types.Build, error) {
+	path := fmt.Sprintf("/httpAuth/app/rest/%s/builds", c.version)
+	var builds struct {
+		Count int64
+		HREF string
+		Build []types.Build
+	}
+
+	err := c.doRequest("GET", path, nil, &builds)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return builds.Build, nil
+}
+
 // GetBuildID returns a build ID for a branch name and buildNumber
 func (c *Client) GetBuildID(buildTypeID, branchName, buildNumber string) (string, error) {
 	type builds struct {
