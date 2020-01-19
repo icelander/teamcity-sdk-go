@@ -113,12 +113,12 @@ func (c *Client) GetBuild(buildID string) (*types.Build, error) {
 }
 
 // GetBuilds finds all the builds
-func (c *Client) GetBuilds() ([]types.Build, error) {
+func (c *Client) GetBuilds() ([]*types.Build, error) {
 	path := fmt.Sprintf("/httpAuth/app/rest/%s/builds", c.version)
 	var builds struct {
 		Count int64
 		HREF string
-		Build []types.Build
+		Build []*types.Build
 	}
 
 	err := c.doRequest("GET", path, nil, &builds)
