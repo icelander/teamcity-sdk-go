@@ -3,14 +3,14 @@ TeamCity API bindings
 
 This is a simple wrapper around the TeamCity API.
 
-[![GoDoc](https://godoc.org/github.com/Cardfree/teamcity-sdk-go?status.png)](https://godoc.org/github.com/Cardfree/teamcity-sdk-go)
+[![GoDoc](https://godoc.org/github.com/icelander/teamcity-sdk-go?status.png)](https://godoc.org/github.com/icelander/teamcity-sdk-go)
 
 Sample usage:
 
 ```go
 package main
 
-import "github.com/Cardfree/teamcity-go-sdk/teamcity"
+import "github.com/icelander/teamcity-go-sdk/teamcity"
 
 func main() {
 	client := teamcity.New("myinstance.example.com", "username", "password")

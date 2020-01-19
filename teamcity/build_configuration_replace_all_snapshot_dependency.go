@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/Cardfree/teamcity-sdk-go/types"
+	"github.com/icelander/teamcity-sdk-go/types"
 )
 
 func (c *Client) ReplaceAllBuildConfigurationSnapshotDependencies(buildConfID string, snapshotDependencies *types.BuildSnapshotDependencies) error {

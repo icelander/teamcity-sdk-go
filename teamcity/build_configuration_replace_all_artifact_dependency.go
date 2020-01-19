@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/Cardfree/teamcity-sdk-go/types"
+	"github.com/icelander/teamcity-sdk-go/types"
 )
 
 func (c *Client) ReplaceAllBuildConfigurationArtifactDependencies(buildConfID string, artifactDependencies *types.BuildArtifactDependencies) error {

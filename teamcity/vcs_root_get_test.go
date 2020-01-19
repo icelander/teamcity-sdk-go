@@ -3,7 +3,7 @@ package teamcity
 import (
 	"testing"
 
-	"github.com/Cardfree/teamcity-sdk-go/types"
+	"github.com/icelander/teamcity-sdk-go/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -20,7 +20,7 @@ func TestClientGetVcsRoot(t *testing.T) {
 	assert.Equal(t, "Rlink", vcs.Name, "Expected create to return Name")
 	assert.Equal(t, "jetbrains.git", vcs.VcsName, "Expected create to return VcsName")
 	assert.Equal(t, types.Properties{
-		"url":                   "https://github.com/cardfree/teamcity-sdk-go",
+		"url":                   "https://github.com/icelander/teamcity-sdk-go",
 		"usernameStyle":         "USERID",
 		"agentCleanFilesPolicy": "ALL_UNTRACKED",
 		"agentCleanPolicy":      "ON_BRANCH_CHANGE",
