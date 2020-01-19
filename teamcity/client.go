@@ -234,6 +234,24 @@ func (c *Client) GetProjects() ([]types.Project, error) {
 	return projects.Project, nil
 }
 
+// GetShortProjects returns all projects in short form
+func (c *Client) GetShortProjects() ([]types.ProjectShort, error) {
+	path := fmt.Sprintf("/httpAuth/app/rest/%s/projects", c.version)
+	var projects struct {
+		Count int64
+		HREF string
+		Project []types.ProjectShort
+	}
+
+	err := c.doRequest("GET", path, nil, &projects)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return projects.Project, nil
+}
+
 // CancelBuild cancels a build
 func (c *Client) CancelBuild(buildID int64, comment string) error {
 	body := map[string]interface{}{
