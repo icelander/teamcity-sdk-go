@@ -114,7 +114,7 @@ func (c *Client) GetBuild(buildID string) (*types.Build, error) {
 
 // GetBuilds finds all the builds
 func (c *Client) GetBuilds() ([]*types.Build, error) {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/builds?fields=count,build(*,triggered(*),properties(property),problemOccurrences(*,problemOccurrence(*)),testOccurrences(*,testOccurrence(*)),changes(*,change(*)))", c.version)
+	path := fmt.Sprintf("/httpAuth/app/rest/%s/builds?fields=count,build(*,tags(tag),triggered(*),properties(property),problemOccurrences(*,problemOccurrence(*)),testOccurrences(*,testOccurrence(*)),changes(*,change(*)))", c.version)
 	var builds struct {
 		Count int64
 		HREF string
@@ -232,42 +232,6 @@ func (c *Client) GetTests(path string, count int64, failingOnly bool, ignoreMute
 	}
 
 	return tests.TestOccurrence, nil
-}
-
-// GetProjects returns all projects
-func (c *Client) GetProjects() ([]types.Project, error) {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/projects", c.version)
-	var projects struct {
-		Count int64
-		HREF string
-		Project []types.Project
-	}
-
-	err := c.doRequest("GET", path, nil, &projects)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return projects.Project, nil
-}
-
-// GetShortProjects returns all projects in short form
-func (c *Client) GetShortProjects() ([]types.ProjectShort, error) {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/projects", c.version)
-	var projects struct {
-		Count int64
-		HREF string
-		Project []types.ProjectShort
-	}
-
-	err := c.doRequest("GET", path, nil, &projects)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return projects.Project, nil
 }
 
 // CancelBuild cancels a build

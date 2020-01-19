@@ -1,7 +1,6 @@
 package types
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
@@ -58,47 +57,11 @@ type Build struct {
 		TestOccurrence []TestOccurrence
 	}
 
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"tags.tag,omitempty"`
 
 	Properties Properties `json:"properties"`
 }
 
-type Tags []string
-
-type tagInput struct {
-	Name string `json:"name"`
-}
-
-type tagsInput struct {
-	Tag []tagInput `json:"tag"`
-}
-
-func (tags Tags) MarshalJSON() ([]byte, error) {
-	tagInputs := make([]tagInput, len(tags))
-	for idx, tag := range tags {
-		tagInputs[idx] = tagInput{tag}
-	}
-	ti := &tagsInput{
-		Tag: tagInputs,
-	}
-	return json.Marshal(ti)
-}
-
-func (tags *Tags) UnmarshalJSON(b []byte) error {
-	var ti tagsInput
-	if err := json.Unmarshal(b, &ti); err != nil {
-		return err
-	}
-	if ti.Tag != nil {
-		*tags = make(Tags, len(ti.Tag))
-		for idx, tag := range ti.Tag {
-			(*tags)[idx] = tag.Name
-		}
-	} else {
-		*tags = make(Tags, 0)
-	}
-	return nil
-}
 
 func (b *Build) String() string {
 	return fmt.Sprintf("Build %d, %#v state=%s", b.ID, b.ComputedState(), b.State)
