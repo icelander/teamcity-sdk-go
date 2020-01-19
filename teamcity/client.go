@@ -25,6 +25,7 @@ type Client struct {
 	retries    int
 }
 
+// New TeamCity client
 func New(host, username, password string, version string) *Client {
 	if version == "" {
 		version = "latest"
@@ -41,12 +42,14 @@ func New(host, username, password string, version string) *Client {
 	}
 }
 
+// Server gets the TeamCity server information
 func (c *Client) Server() (*types.Server, error) {
 	var server *types.Server
 	err := c.doRequest("GET", fmt.Sprintf("/httpAuth/app/rest/%s/server", c.version), nil, &server)
 	return server, err
 }
 
+// QueueBuild queues a build
 func (c *Client) QueueBuild(buildTypeID string, branchName string, properties types.Properties) (*types.Build, error) {
 	jsonQuery := struct {
 		BuildTypeID string           `json:"buildTypeId,omitempty"`
@@ -71,6 +74,7 @@ func (c *Client) QueueBuild(buildTypeID string, branchName string, properties ty
 	return build, nil
 }
 
+// SearchBuild finds a build based on a string
 func (c *Client) SearchBuild(locator string) ([]*types.Build, error) {
 	path := fmt.Sprintf("/httpAuth/app/rest/%s/builds/?locator=%s&fields=count,build(*,tags(tag),triggered(*),properties(property),problemOccurrences(*,problemOccurrence(*)),testOccurrences(*,testOccurrence(*)),changes(*,change(*)))", c.version, locator)
 
@@ -88,6 +92,7 @@ func (c *Client) SearchBuild(locator string) ([]*types.Build, error) {
 	return respStruct.Build, nil
 }
 
+// GetBuild returns a build from a buildID
 func (c *Client) GetBuild(buildID string) (*types.Build, error) {
 	path := fmt.Sprintf("/httpAuth/app/rest/%s/builds/id:%s?fields=*,tags(tag),triggered(*),properties(property),problemOccurrences(*,problemOccurrence(*)),testOccurrences(*,testOccurrence(*)),changes(*,change(*))", c.version, buildID)
 	var build *types.Build
@@ -107,6 +112,7 @@ func (c *Client) GetBuild(buildID string) (*types.Build, error) {
 	return build, nil
 }
 
+// GetBuildID returns a build ID for a branch name and buildNumber
 func (c *Client) GetBuildID(buildTypeID, branchName, buildNumber string) (string, error) {
 	type builds struct {
 		Count    int
@@ -132,6 +138,7 @@ func (c *Client) GetBuildID(buildTypeID, branchName, buildNumber string) (string
 	return fmt.Sprintf("%d", build.Build[0].ID), nil
 }
 
+// GetBuildProperties returns the build properties when passed a buildID string
 func (c *Client) GetBuildProperties(buildID string) (types.Properties, error) {
 	path := fmt.Sprintf("/httpAuth/app/rest/%s/builds/id:%s/resulting-properties", c.version, buildID)
 
@@ -146,6 +153,7 @@ func (c *Client) GetBuildProperties(buildID string) (types.Properties, error) {
 	return response, nil
 }
 
+// GetChanges gets changes
 func (c *Client) GetChanges(path string) ([]types.Change, error) {
 	var changes struct {
 		Change []types.Change
@@ -164,6 +172,7 @@ func (c *Client) GetChanges(path string) ([]types.Change, error) {
 	return changes.Change, nil
 }
 
+// GetProblems returns problems
 func (c *Client) GetProblems(path string, count int64) ([]types.ProblemOccurrence, error) {
 	var problems struct {
 		Count             int64
@@ -184,6 +193,7 @@ func (c *Client) GetProblems(path string, count int64) ([]types.ProblemOccurrenc
 	return problems.ProblemOccurrence, nil
 }
 
+// GetTests returns tests
 func (c *Client) GetTests(path string, count int64, failingOnly bool, ignoreMuted bool) ([]types.TestOccurrence, error) {
 	var tests struct {
 		Count          int64
@@ -206,6 +216,7 @@ func (c *Client) GetTests(path string, count int64, failingOnly bool, ignoreMute
 	return tests.TestOccurrence, nil
 }
 
+// GetProjects returns all projects
 func (c *Client) GetProjects() ([]types.Project, error) {
 	path := fmt.Sprintf("/httpAuth/app/rest/%s/projects", c.version)
 	var projects struct {
@@ -223,6 +234,7 @@ func (c *Client) GetProjects() ([]types.Project, error) {
 	return projects.Project, nil
 }
 
+// CancelBuild cancels a build
 func (c *Client) CancelBuild(buildID int64, comment string) error {
 	body := map[string]interface{}{
 		"buildCancelRequest": map[string]interface{}{
@@ -233,6 +245,7 @@ func (c *Client) CancelBuild(buildID int64, comment string) error {
 	return c.doRequest("POST", fmt.Sprintf("/httpAuth/app/rest/id:%d", buildID), body, nil)
 }
 
+// GetBuildLog returns a Build Log
 func (c *Client) GetBuildLog(buildID string) (string, error) {
 	cnt, err := c.doNotJSONRequest("GET", fmt.Sprintf("/httpAuth/downloadBuildLog.html?buildId=%s", buildID), "application/json", "", nil)
 	buf := bytes.NewBuffer(cnt)
