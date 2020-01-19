@@ -206,6 +206,23 @@ func (c *Client) GetTests(path string, count int64, failingOnly bool, ignoreMute
 	return tests.TestOccurrence, nil
 }
 
+func (c *Client) GetProjects() ([]types.Project, error) {
+	path := fmt.Sprintf("/httpAuth/app/rest/%s/projects", c.version)
+	var projects struct {
+		Count int64
+		HREF string
+		Project []types.Project
+	}
+
+	err := c.doRequest("GET", path, nil, &projects)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return projects.Project, nil
+}
+
 func (c *Client) CancelBuild(buildID int64, comment string) error {
 	body := map[string]interface{}{
 		"buildCancelRequest": map[string]interface{}{
