@@ -117,7 +117,7 @@ func (c *Client) GetBuilds() ([]*types.Build, error) {
 	path := fmt.Sprintf("/httpAuth/app/rest/%s/builds?fields=count,build(*,tags(tag),triggered(*),properties(property),problemOccurrences(*,problemOccurrence(*)),testOccurrences(*,testOccurrence(*)),changes(*,change(*)))", c.version)
 	var builds struct {
 		Count int64
-		HREF string
+		HREF  string
 		Build []*types.Build
 	}
 
@@ -235,14 +235,23 @@ func (c *Client) GetTests(path string, count int64, failingOnly bool, ignoreMute
 }
 
 // CancelBuild cancels a build
-func (c *Client) CancelBuild(buildID int64, comment string) error {
+func (c *Client) CancelBuild(buildID int64, comment string) (*types.Build, error) {
+	var build *types.Build
 	body := map[string]interface{}{
 		"buildCancelRequest": map[string]interface{}{
 			"comment":       comment,
 			"readIntoQueue": true,
 		},
 	}
-	return c.doRequest("POST", fmt.Sprintf("/httpAuth/app/rest/id:%d", buildID), body, nil)
+
+	// doNotJSONRequest(method string, path string, accept string, mime string, body io.Reader)
+	err := c.doRequest("POST", fmt.Sprintf("/httpAuth/app/rest/builds/id:%d", buildID), body, &build)
+
+	if err != nil {
+		return build, err
+	}
+
+	return build, nil
 }
 
 // GetBuildLog returns a Build Log
@@ -277,6 +286,7 @@ func (c *Client) doRequest(method string, path string, data interface{}, v inter
 	}
 
 	jsonCnt, err := c.doNotJSONRequest(method, path, "application/json", "application/json", body)
+
 	if err != nil {
 		return err
 	}
@@ -327,6 +337,7 @@ func (c *Client) doNotJSONRequest(method string, path string, accept string, mim
 	}
 
 	respBody, err := ioutil.ReadAll(resp.Body)
+
 	if err != nil {
 		return nil, err
 	}
