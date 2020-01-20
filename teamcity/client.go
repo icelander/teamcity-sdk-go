@@ -238,10 +238,8 @@ func (c *Client) GetTests(path string, count int64, failingOnly bool, ignoreMute
 func (c *Client) CancelBuild(buildID int64, comment string) (*types.Build, error) {
 	var build *types.Build
 	body := map[string]interface{}{
-		"buildCancelRequest": map[string]interface{}{
-			"comment":       comment,
-			"readIntoQueue": true,
-		},
+		"comment":       comment,
+		"readIntoQueue": true,
 	}
 
 	// doNotJSONRequest(method string, path string, accept string, mime string, body io.Reader)

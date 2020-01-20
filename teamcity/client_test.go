@@ -48,4 +48,4 @@ func TestClientCancelBuild(t *testing.T) {
 
 	assert.IsType(build, &types.Build{})
 	assert.Equal(build.ID, int64(29))
-}
+  }
