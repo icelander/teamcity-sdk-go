@@ -1,0 +1,121 @@
+{
+    "id": "MattermostTeamcityPlugin_TestBuild",
+    "name": "Test Build",
+    "projectName": "Mattermost Teamcity Plugin",
+    "projectId": "MattermostTeamcityPlugin",
+    "href": "/app/rest/buildTypes/id:MattermostTeamcityPlugin_TestBuild",
+    "webUrl": "http://127.0.0.1:8111/viewType.html?buildTypeId=MattermostTeamcityPlugin_TestBuild",
+    "project": {
+        "id": "MattermostTeamcityPlugin",
+        "name": "Mattermost Teamcity Plugin",
+        "parentProjectId": "_Root",
+        "href": "/app/rest/projects/id:MattermostTeamcityPlugin",
+        "webUrl": "http://127.0.0.1:8111/project.html?projectId=MattermostTeamcityPlugin"
+    },
+    "templates": {
+        "count": 0,
+        "buildType": []
+    },
+    "vcs-root-entries": {
+        "count": 1,
+        "vcs-root-entry": [
+            {
+                "id": "MattermostTeamcityPlugin_HttpsGithubComIcelanderMattermostTeamcityPluginGitRefsHeadsMaster",
+                "vcs-root": {
+                    "id": "MattermostTeamcityPlugin_HttpsGithubComIcelanderMattermostTeamcityPluginGitRefsHeadsMaster",
+                    "name": "https://github.com/icelander/mattermost-teamcity-plugin.git#refs/heads/master",
+                    "href": "/app/rest/vcs-roots/id:MattermostTeamcityPlugin_HttpsGithubComIcelanderMattermostTeamcityPluginGitRefsHeadsMaster"
+                },
+                "checkout-rules": ""
+            }
+        ]
+    },
+    "settings": {
+        "count": 1,
+        "property": [
+            {
+                "name": "buildNumberCounter",
+                "value": "16"
+            }
+        ]
+    },
+    "parameters": {
+        "count": 0,
+        "href": "/app/rest/buildTypes/id:MattermostTeamcityPlugin_TestBuild/parameters",
+        "property": []
+    },
+    "steps": {
+        "count": 1,
+        "step": [
+            {
+                "id": "RUNNER_1",
+                "name": "",
+                "type": "simpleRunner",
+                "properties": {
+                    "count": 3,
+                    "property": [
+                        {
+                            "name": "script.content",
+                            "value": "#!/bin/bash\n\necho \"### Mattermost TeamCity Plugin Build Started ###\"\n\necho \"Build Number: %build.number%\"\n\nsleep 2m\n\necho \"### Mattermost TeamCity Plugin Build Complete ###\""
+                        },
+                        {
+                            "name": "teamcity.step.mode",
+                            "value": "default"
+                        },
+                        {
+                            "name": "use.custom.script",
+                            "value": "true"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "features": {
+        "count": 0
+    },
+    "triggers": {
+        "count": 1,
+        "trigger": [
+            {
+                "id": "vcsTrigger",
+                "type": "vcsTrigger",
+                "properties": {
+                    "count": 3,
+                    "property": [
+                        {
+                            "name": "branchFilter",
+                            "value": "+:*"
+                        },
+                        {
+                            "name": "enableQueueOptimization",
+                            "value": "true"
+                        },
+                        {
+                            "name": "quietPeriodMode",
+                            "value": "DO_NOT_USE"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "snapshot-dependencies": {
+        "count": 0
+    },
+    "artifact-dependencies": {
+        "count": 0
+    },
+    "agent-requirements": {
+        "count": 0
+    },
+    "builds": {
+        "href": "/app/rest/buildTypes/id:MattermostTeamcityPlugin_TestBuild/builds/"
+    },
+    "investigations": {
+        "href": "/app/rest/investigations?locator=buildType:(id:MattermostTeamcityPlugin_TestBuild)"
+    },
+    "compatibleAgents": {
+        "href": "/app/rest/agents?locator=compatible:(buildType:(id:MattermostTeamcityPlugin_TestBuild))"
+    }
+}

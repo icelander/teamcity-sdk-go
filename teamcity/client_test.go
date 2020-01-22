@@ -125,6 +125,46 @@ func TestClientGetBuildQueue(t *testing.T) {
 	assert.Equal(builds[0].QueuePosition, int64(1))
 }
 
+func TestClientGetBuildType(t *testing.T) {
+	assert := assert.New(t)
+
+	jsonFixture, err := ioutil.ReadFile("../fixtures/TestClientGetBuildType.json")
+
+	if err != nil {
+		t.Fatal("Expected no error, got", err)
+	}
+
+	client := NewTestClient(newResponse(string(jsonFixture)), nil)
+
+	buildType, err := client.GetBuildType("MattermostTeamcityPlugin_TestBuild")
+	
+	if err != nil {
+		t.Fatal("Expected no error, got", err)
+	}
+
+	assert.Equal(buildType.ID, "MattermostTeamcityPlugin_TestBuild")
+}
+
+func TestClientInvalidBuildType(t *testing.T) {
+	assert := assert.New(t)
+
+	respBody := "Responding with error, status code: 404 (Not Found).\n" +
+		"Details: jetbrains.buildServer.server.rest.errors.NotFoundException: No build type nor template is found by id 'janet'.\n" +
+		"Could not find the entity requested. Check the reference is correct and the user has permissions to access the entity."
+
+	client := NewTestClient(newCodeResponse("404 (Not Found)", 404, respBody), nil)
+
+	buildType, err := client.GetBuildType("MattermostTeamcityPlugin_TestBuild")
+	
+	if err != nil {
+		t.Fatal("Expected no error, got", err)
+	}
+
+	var emptyBuildType *types.BuildType
+
+	assert.Equal(emptyBuildType, buildType)
+}
+
 func TestClientGetEmptyBuildQueue(t *testing.T) {
 	assert := assert.New(t)
 

@@ -38,3 +38,13 @@ func newResponse(body string) *http.Response {
 	resp := &http.Response{Body: ioutil.NopCloser(bytes.NewBuffer([]byte(body)))}
 	return resp
 }
+
+func newCodeResponse(status string, httpCode int, body string) *http.Response {
+	resp := &http.Response{
+		Status: status, 
+		StatusCode: httpCode,
+		Body: ioutil.NopCloser(bytes.NewBuffer([]byte(body))),
+	}
+
+	return resp
+}

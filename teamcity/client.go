@@ -91,6 +91,7 @@ func (c *Client) QueueBuild(buildTypeID string, branchName string, properties ty
 		Properties  types.Properties `json:"properties"`
 		BranchName  string           `json:"branchName,omitempty"`
 	}{}
+
 	jsonQuery.BuildTypeID = buildTypeID
 	if branchName != "" {
 		jsonQuery.BranchName = fmt.Sprintf("refs/heads/%s", branchName)
@@ -107,6 +108,19 @@ func (c *Client) QueueBuild(buildTypeID string, branchName string, properties ty
 	}
 
 	return build, nil
+}
+
+// GetBuildType returns a build type based on its ID
+func (c *Client) GetBuildType(buildTypeID string) (*types.BuildType, error) {
+	var buildType *types.BuildType
+
+	err := c.doRequest("GET", fmt.Sprintf("/app/rest/buildTypes/id:%s", buildTypeID), nil, &buildType)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return buildType, nil
 }
 
 // SearchBuild finds a build based on a string
