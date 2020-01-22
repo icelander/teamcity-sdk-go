@@ -66,6 +66,24 @@ func (c *Client) GetAgentStats() ([]*types.Agent, error) {
 	return agents.Agent, nil
 }
 
+// GetBuildQueue returns the build queue
+func (c *Client) GetBuildQueue() ([]*types.Build, error) {
+	path := "/app/rest/buildQueue?fields=count,build(state,queuedDate,webUrl,statusText)"
+	var builds struct {
+		Count int64
+		HREF  string
+		Build []*types.Build
+	}
+
+	err := c.doRequest("GET", path, nil, &builds)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return builds.Build, nil
+}
+
 // QueueBuild queues a build
 func (c *Client) QueueBuild(buildTypeID string, branchName string, properties types.Properties) (*types.Build, error) {
 	jsonQuery := struct {

@@ -1,0 +1,91 @@
+{
+    "count": 1,
+    "build": [
+        {
+            "id": 19,
+            "taskId": 19,
+            "buildTypeId": "MattermostTeamcityPlugin_TestBuild",
+            "buildTypeInternalId": "bt1",
+            "state": "queued",
+            "running": false,
+            "composite": false,
+            "failedToStart": false,
+            "personal": false,
+            "history": false,
+            "href": "/app/rest/buildQueue/id:19",
+            "webUrl": "http://127.0.0.1:8111/viewQueued.html?itemId=19",
+            "queuePosition": 1,
+            "limitedChangesCount": 0,
+            "artifactsDirectory": "/opt/TeamCity/.BuildServer/system/artifacts/MattermostTeamcityPlugin/Test Build/19",
+            "links": {
+                "count": 1,
+                "link": [
+                    {
+                        "type": "webView",
+                        "url": "http://127.0.0.1:8111/viewQueued.html?itemId=19",
+                        "relativeUrl": "/viewQueued.html?itemId=19"
+                    }
+                ]
+            },
+            "buildType": {
+                "id": "MattermostTeamcityPlugin_TestBuild",
+                "name": "Test Build",
+                "projectName": "Mattermost Teamcity Plugin",
+                "projectId": "MattermostTeamcityPlugin",
+                "href": "/app/rest/buildTypes/id:MattermostTeamcityPlugin_TestBuild",
+                "webUrl": "http://127.0.0.1:8111/viewType.html?buildTypeId=MattermostTeamcityPlugin_TestBuild"
+            },
+            "tags": {
+                "count": 0
+            },
+            "waitReason": "Build settings have not been finalized",
+            "queuedDate": "20200122T040051+0000",
+            "triggered": {
+                "type": "user",
+                "date": "20200122T040051+0000",
+                "user": {}
+            },
+            "changes": {
+                "href": "/app/rest/changes?locator=build:(id:19)"
+            },
+            "revisions": {
+                "count": 0,
+                "revision": []
+            },
+            "artifactDependencyChanges": {
+                "count": 0
+            },
+            "compatibleAgents": {
+                "href": "/app/rest/agents?locator=compatible:(build:(id:19))"
+            },
+            "artifacts": {
+                "href": "/app/rest/builds/id:19/artifacts/children/"
+            },
+            "properties": {
+                "count": 0
+            },
+            "resultingProperties": {
+                "count": 49
+            },
+            "attributes": {
+                "count": 0
+            },
+            "snapshot-dependencies": {
+                "count": 0
+            },
+            "custom-artifact-dependencies": {
+                "count": 0,
+                "artifact-dependency": []
+            },
+            "settingsHash": "5d4f3dc63f03efb82ed845f416b20c9a2d8a10ae",
+            "currentSettingsHash": "5d4f3dc63f03efb82ed845f416b20c9a2d8a10ae",
+            "modificationId": "null",
+            "chainModificationId": "null",
+            "replacementIds": {
+                "item": []
+            },
+            "related": {},
+            "usedByOtherBuilds": false
+        }
+    ]
+}

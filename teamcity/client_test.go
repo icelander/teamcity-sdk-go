@@ -2,17 +2,11 @@ package teamcity
 
 import (
 	"io/ioutil"
-	"os"
 	"testing"
 
 	"github.com/icelander/teamcity-sdk-go/types"
 	"github.com/stretchr/testify/assert"
 )
-
-func TestWorkingDirectory(t *testing.T) {
-         wd, _ := os.Getwd()
-         t.Log(wd)
-}
 
 func TestClientGetBuildProperties(t *testing.T) {
 	client := NewTestClient(newResponse(`{"property":[{"name": "build.counter", "value": "12"}], "count": 1}`), nil)
@@ -83,6 +77,32 @@ func TestClientGetAgentStats(t *testing.T) {
 	assert.True(agents[0].Connected)
 }
 
+func TestClientGetAgentStatsNoBuild(t *testing.T) {
+	assert := assert.New(t)
+
+	jsonFixture, err := ioutil.ReadFile("../fixtures/TestClientGetAgentStatsNoBuild.json")
+
+	if err != nil {
+		t.Fatal("Expected no error, got", err)
+	}
+
+	client := NewTestClient(newResponse(string(jsonFixture)), nil)
+
+	agents, err := client.GetAgentStats()
+	
+	if err != nil {
+		t.Fatal("Expected no error, got", err)
+	}
+
+	assert.Equal(len(agents), 1)
+	assert.IsType(agents[0], &types.Agent{})
+
+	assert.Equal(agents[0].ID, 1)
+	assert.Equal(agents[0].Name, "ip_10.0.2.15")
+	assert.Equal(agents[0].ActiveBuild.BuildTypeID, "")
+	assert.True(agents[0].Connected)
+}
+
 func TestClientGetBuildQueue(t *testing.T) {
 	assert := assert.New(t)
 
@@ -94,9 +114,32 @@ func TestClientGetBuildQueue(t *testing.T) {
 
 	client := NewTestClient(newResponse(string(jsonFixture)), nil)
 
-	agents, err := client.GetBuildQueue()
+	builds, err := client.GetBuildQueue()
 	
 	if err != nil {
 		t.Fatal("Expected no error, got", err)
 	}
+
+	assert.Equal(builds[0].ID, int64(19))
+	assert.Equal(builds[0].BuildTypeID, "MattermostTeamcityPlugin_TestBuild")
+}
+
+func TestClientGetEmptyBuildQueue(t *testing.T) {
+	assert := assert.New(t)
+
+	jsonFixture, err := ioutil.ReadFile("../fixtures/TestClientGetEmptyBuildQueue.json")
+
+	if err != nil {
+		t.Fatal("Expected no error, got", err)
+	}
+
+	client := NewTestClient(newResponse(string(jsonFixture)), nil)
+
+	builds, err := client.GetBuildQueue()
+	
+	if err != nil {
+		t.Fatal("Expected no error, got", err)
+	}
+
+	assert.Equal(len(builds), 0)
 }
