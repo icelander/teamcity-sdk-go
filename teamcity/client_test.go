@@ -122,6 +122,7 @@ func TestClientGetBuildQueue(t *testing.T) {
 
 	assert.Equal(builds[0].ID, int64(19))
 	assert.Equal(builds[0].BuildTypeID, "MattermostTeamcityPlugin_TestBuild")
+	assert.Equal(builds[0].QueuePosition, int64(1))
 }
 
 func TestClientGetEmptyBuildQueue(t *testing.T) {

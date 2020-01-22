@@ -29,6 +29,7 @@ type Build struct {
 	}
 
 	QueuedDate    JSONTime
+	QueuePosition int64
 	StartDate     JSONTime
 	FinishDate    JSONTime
 	Number        string
