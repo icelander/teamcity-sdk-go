@@ -1,0 +1,85 @@
+{
+    "id": 29,
+    "buildTypeId": "MattermostTeamcityPlugin_Build",
+    "number": "22",
+    "status": "UNKNOWN",
+    "state": "running",
+    "percentageComplete": 98,
+    "href": "/app/rest/builds/id:29",
+    "webUrl": "http://127.0.0.1:8111/viewLog.html?buildId=29&buildTypeId=MattermostTeamcityPlugin_Build",
+    "statusText": "Canceled (Step 1/1)",
+    "buildType": {
+        "id": "MattermostTeamcityPlugin_Build",
+        "name": "Build",
+        "projectName": "Mattermost Teamcity Plugin",
+        "projectId": "MattermostTeamcityPlugin",
+        "href": "/app/rest/buildTypes/id:MattermostTeamcityPlugin_Build",
+        "webUrl": "http://127.0.0.1:8111/viewType.html?buildTypeId=MattermostTeamcityPlugin_Build"
+    },
+    "running-info": {
+        "percentageComplete": 98,
+        "elapsedSeconds": 119,
+        "estimatedTotalSeconds": 118,
+        "currentStageText": "Step 1/1: Build Number: 22",
+        "outdated": false,
+        "probablyHanging": false
+    },
+    "canceledInfo": {
+        "timestamp": "20200120T032325+0000",
+        "text": "Cancelling via curl",
+        "user": {
+            "username": "paul",
+            "name": "Paul Rothrock",
+            "id": 1,
+            "href": "/app/rest/users/id:1"
+        }
+    },
+    "queuedDate": "20200120T032125+0000",
+    "startDate": "20200120T032125+0000",
+    "triggered": {
+        "type": "user",
+        "date": "20200120T032125+0000",
+        "user": {
+            "username": "paul",
+            "name": "Paul Rothrock",
+            "id": 1,
+            "href": "/app/rest/users/id:1"
+        }
+    },
+    "changes": {
+        "count": 0,
+        "href": "/app/rest/changes?locator=build:(id:29)"
+    },
+    "revisions": {
+        "count": 1,
+        "revision": [
+            {
+                "version": "2691bc37fefa5216ace02434b8a24d042013bea9",
+                "vcsBranchName": "refs/heads/master",
+                "vcs-root-instance": {
+                    "id": "1",
+                    "vcs-root-id": "MattermostTeamcityPlugin_HttpsGithubComIcelanderMattermostTeamcityPluginGitRefsHeadsMaster",
+                    "name": "https://github.com/icelander/mattermost-teamcity-plugin.git#refs/heads/master",
+                    "href": "/app/rest/vcs-root-instances/id:1"
+                }
+            }
+        ]
+    },
+    "agent": {
+        "id": 1,
+        "name": "ip_10.0.2.15",
+        "typeId": 1,
+        "href": "/app/rest/agents/id:1",
+        "webUrl": "http://127.0.0.1:8111/agentDetails.html?id=1&agentTypeId=1&realAgentName=ip_10.0.2.15"
+    },
+    "artifacts": {
+        "count": 0,
+        "href": "/app/rest/builds/id:29/artifacts/children/"
+    },
+    "relatedIssues": {
+        "href": "/app/rest/builds/id:29/relatedIssues"
+    },
+    "statistics": {
+        "href": "/app/rest/builds/id:29/statistics"
+    }
+}

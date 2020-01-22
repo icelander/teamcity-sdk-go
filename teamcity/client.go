@@ -49,6 +49,23 @@ func (c *Client) Server() (*types.Server, error) {
 	return server, err
 }
 
+// GetAgentStats returns the current agents
+func (c *Client) GetAgentStats() ([]*types.Agent, error) {
+	path := "/app/rest/agents?fields=count,agent(*,name,href,connected,enabled,authorized,uptodate)"
+	var agents struct {
+		Count int64
+		Agent []*types.Agent
+	}
+
+	err := c.doRequest("GET", path, nil, &agents)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return agents.Agent, nil
+}
+
 // QueueBuild queues a build
 func (c *Client) QueueBuild(buildTypeID string, branchName string, properties types.Properties) (*types.Build, error) {
 	jsonQuery := struct {

@@ -1,0 +1,82 @@
+{
+    "count": 1,
+    "agent": [
+        {
+            "id": 1,
+            "name": "ip_10.0.2.15",
+            "typeId": 1,
+            "connected": true,
+            "enabled": true,
+            "authorized": true,
+            "uptodate": true,
+            "ip": "10.0.2.15",
+            "protocol": "unidirectional",
+            "version": "71499",
+            "lastActivityTime": "20200121T030252+0000",
+            "href": "/app/rest/agents/id:1",
+            "webUrl": "http://127.0.0.1:8111/agentDetails.html?id=1&agentTypeId=1&realAgentName=ip_10.0.2.15",
+            "build": {
+                "id": 2,
+                "buildTypeId": "MattermostTeamcityPlugin_TestBuild",
+                "number": "2",
+                "status": "SUCCESS",
+                "state": "running",
+                "percentageComplete": 28,
+                "href": "/app/rest/builds/id:2",
+                "webUrl": "http://127.0.0.1:8111/viewLog.html?buildId=2&buildTypeId=MattermostTeamcityPlugin_TestBuild"
+            },
+            "links": {
+                "count": 1,
+                "link": [
+                    {
+                        "type": "webView",
+                        "url": "http://127.0.0.1:8111/agentDetails.html?id=1&agentTypeId=1&realAgentName=ip_10.0.2.15",
+                        "relativeUrl": "/agentDetails.html?id=1&agentTypeId=1&realAgentName=ip_10.0.2.15"
+                    }
+                ]
+            },
+            "enabledInfo": {
+                "status": true
+            },
+            "authorizedInfo": {
+                "status": true
+            },
+            "properties": {
+                "count": 69
+            },
+            "environment": {
+                "osType": "Linux"
+            },
+            "pool": {
+                "id": 0,
+                "name": "Default",
+                "href": "/app/rest/agentPools/id:0"
+            },
+            "compatibilityPolicy": {
+                "policy": "any"
+            },
+            "compatibleBuildTypes": {
+                "count": 1
+            },
+            "incompatibleBuildTypes": {
+                "count": 0,
+                "compatibility": []
+            },
+            "builds": {
+                "count": 1,
+                "href": "/app/rest/builds/agent:(id:1),count:1",
+                "build": [
+                    {
+                        "id": 1,
+                        "buildTypeId": "MattermostTeamcityPlugin_TestBuild",
+                        "number": "1",
+                        "status": "SUCCESS",
+                        "state": "finished",
+                        "href": "/app/rest/builds/id:1",
+                        "webUrl": "http://127.0.0.1:8111/viewLog.html?buildId=1&buildTypeId=MattermostTeamcityPlugin_TestBuild"
+                    }
+                ]
+            }
+        }
+    ]
+}
