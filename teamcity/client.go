@@ -20,6 +20,7 @@ type Client struct {
 	HTTPClient *http.Client
 	token	   string
 	host       string
+	version    string
 	retries    int
 }
 
@@ -31,6 +32,7 @@ func New(host, token string) *Client {
 		},
 		token:    token,
 		host:     host,
+		version:  "2019.2",
 		retries:  8,
 	}
 }
