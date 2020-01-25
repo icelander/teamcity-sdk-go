@@ -8,6 +8,19 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestClientGetServer(t *testing.T) {
+	assert := assert.New(t)
+	client := New("http://127.0.0.1:8111", "eyJ0eXAiOiAiVENWMiJ9.d21QeUw2akYwclFBQTVtUGlxY2xOWWV4TVNz.MDViNmM0Y2EtNzc5YS00MDU5LWE0NTgtYmVmNzg4YzhjMGVl")
+
+	server, err := client.Server()
+
+	if err != nil {
+		t.Fatal("Expected no error, got", err)
+	}
+
+	assert.Equal("2019.2 (build 71499)", server.Version)
+}
+
 func TestClientGetBuildProperties(t *testing.T) {
 	client := NewTestClient(newResponse(`{"property":[{"name": "build.counter", "value": "12"}], "count": 1}`), nil)
 

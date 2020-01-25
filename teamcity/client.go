@@ -18,26 +18,19 @@ import (
 // Client to access a TeamCity API
 type Client struct {
 	HTTPClient *http.Client
-	username   string
-	password   string
+	token	   string
 	host       string
-	version    string
 	retries    int
 }
 
 // New TeamCity client
-func New(host, username, password string, version string) *Client {
-	if version == "" {
-		version = "latest"
-	}
+func New(host, token string) *Client {
 	return &Client{
 		HTTPClient: &http.Client{
 			Timeout: time.Second * 2,
 		},
-		username: username,
-		password: password,
+		token:    token,
 		host:     host,
-		version:  version,
 		retries:  8,
 	}
 }
@@ -45,7 +38,7 @@ func New(host, username, password string, version string) *Client {
 // Server gets the TeamCity server information
 func (c *Client) Server() (*types.Server, error) {
 	var server *types.Server
-	err := c.doRequest("GET", fmt.Sprintf("/httpAuth/app/rest/%s/server", c.version), nil, &server)
+	err := c.doRequest("GET", "/app/rest/server", nil, &server)
 	return server, err
 }
 
@@ -101,7 +94,7 @@ func (c *Client) QueueBuild(buildTypeID string, branchName string, properties ty
 	build := &types.Build{}
 
 	err := withRetry(c.retries, func() error {
-		return c.doRequest("POST", fmt.Sprintf("/httpAuth/app/rest/%s/buildQueue", c.version), jsonQuery, &build)
+		return c.doRequest("POST", "/app/rest/buildQueue", jsonQuery, &build)
 	})
 	if err != nil {
 		return nil, err
@@ -125,7 +118,7 @@ func (c *Client) GetBuildType(buildTypeID string) (*types.BuildType, error) {
 
 // SearchBuild finds a build based on a string
 func (c *Client) SearchBuild(locator string) ([]*types.Build, error) {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/builds/?locator=%s&fields=count,build(*,tags(tag),triggered(*),properties(property),problemOccurrences(*,problemOccurrence(*)),testOccurrences(*,testOccurrence(*)),changes(*,change(*)))", c.version, locator)
+	path := fmt.Sprintf("/app/rest/builds/?locator=%s&fields=count,build(*,tags(tag),triggered(*),properties(property),problemOccurrences(*,problemOccurrence(*)),testOccurrences(*,testOccurrence(*)),changes(*,change(*)))", locator)
 
 	respStruct := struct {
 		Count int
@@ -143,7 +136,7 @@ func (c *Client) SearchBuild(locator string) ([]*types.Build, error) {
 
 // GetBuild returns a build from a buildID
 func (c *Client) GetBuild(buildID string) (*types.Build, error) {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/builds/id:%s?fields=*,tags(tag),triggered(*),properties(property),problemOccurrences(*,problemOccurrence(*)),testOccurrences(*,testOccurrence(*)),changes(*,change(*))", c.version, buildID)
+	path := fmt.Sprintf("/app/rest/builds/id:%s?fields=*,tags(tag),triggered(*),properties(property),problemOccurrences(*,problemOccurrence(*)),testOccurrences(*,testOccurrence(*)),changes(*,change(*))", buildID)
 	var build *types.Build
 
 	err := withRetry(c.retries, func() error {
@@ -163,7 +156,7 @@ func (c *Client) GetBuild(buildID string) (*types.Build, error) {
 
 // GetBuilds finds all the builds
 func (c *Client) GetBuilds() ([]*types.Build, error) {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/builds?fields=count,build(*,tags(tag),triggered(*),properties(property),problemOccurrences(*,problemOccurrence(*)),testOccurrences(*,testOccurrence(*)),changes(*,change(*)))", c.version)
+	path := "/app/rest/builds?fields=count,build(*,tags(tag),triggered(*),properties(property),problemOccurrences(*,problemOccurrence(*)),testOccurrences(*,testOccurrence(*)),changes(*,change(*)))"
 	var builds struct {
 		Count int64
 		HREF  string
@@ -188,7 +181,7 @@ func (c *Client) GetBuildID(buildTypeID, branchName, buildNumber string) (string
 		Build    []types.Build
 	}
 
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/buildTypes/id:%s/builds?locator=branch:%s,number:%s,count:1", c.version, buildTypeID, branchName, buildNumber)
+	path := fmt.Sprintf("/app/rest/buildTypes/id:%s/builds?locator=branch:%s,number:%s,count:1", buildTypeID, branchName, buildNumber)
 
 	var build *builds
 	err := withRetry(c.retries, func() error {
@@ -207,7 +200,7 @@ func (c *Client) GetBuildID(buildTypeID, branchName, buildNumber string) (string
 
 // GetBuildProperties returns the build properties when passed a buildID string
 func (c *Client) GetBuildProperties(buildID string) (types.Properties, error) {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/builds/id:%s/resulting-properties", c.version, buildID)
+	path := fmt.Sprintf("/app/rest/builds/id:%s/resulting-properties", buildID)
 
 	var response types.Properties
 
@@ -292,7 +285,7 @@ func (c *Client) CancelBuild(buildID int64, comment string) (*types.Build, error
 	}
 
 	// doNotJSONRequest(method string, path string, accept string, mime string, body io.Reader)
-	err := c.doRequest("POST", fmt.Sprintf("/httpAuth/app/rest/builds/id:%d", buildID), body, &build)
+	err := c.doRequest("POST", fmt.Sprintf("/app/rest/builds/id:%d", buildID), body, &build)
 
 	if err != nil {
 		return build, err
@@ -303,7 +296,7 @@ func (c *Client) CancelBuild(buildID int64, comment string) (*types.Build, error
 
 // GetBuildLog returns a Build Log
 func (c *Client) GetBuildLog(buildID string) (string, error) {
-	cnt, err := c.doNotJSONRequest("GET", fmt.Sprintf("/httpAuth/downloadBuildLog.html?buildId=%s", buildID), "application/json", "", nil)
+	cnt, err := c.doNotJSONRequest("GET", fmt.Sprintf("/downloadBuildLog.html?buildId=%s", buildID), "application/json", "", nil)
 	buf := bytes.NewBuffer(cnt)
 	return buf.String(), err
 }
@@ -367,7 +360,7 @@ func (c *Client) doNotJSONRequest(method string, path string, accept string, mim
 	log.Printf("[TRACE] %s %s\n", method, authURL)
 
 	req, _ := http.NewRequest(method, authURL, body)
-	req.SetBasicAuth(c.username, c.password)
+	req.Header.Add("Authorization", "Bearer " + c.token)
 	req.Header.Add("Accept", accept)
 
 	if body != nil {

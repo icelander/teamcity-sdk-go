@@ -8,10 +8,8 @@ import (
 
 func NewTestClient(replyResp *http.Response, err error) *Client {
 	client := &Client{
-		username: "username",
-		password: "password",
+		token:    "token",
 		host:     "host.example.com",
-		version:  "latest",
 		retries:  8,
 	}
 	httpClient := &http.Client{}

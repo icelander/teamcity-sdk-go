@@ -63,7 +63,7 @@ func (c *Client) VersionParameterValue(t *testing.T, parameter string) string {
 
 func NewRealTestClient(t *testing.T) (*Client, error) {
 	IsRealTestSkip(t)
-	client := New(fmt.Sprintf("http://%s:8112", *host), "admin", "admin", "latest")
+	client := New(fmt.Sprintf("http://%s:8112", *host), "token")
 	err := client.WaitForReady()
 	if err != nil {
 		return nil, err
