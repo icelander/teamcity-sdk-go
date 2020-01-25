@@ -68,7 +68,7 @@ func (c *Client) GetAgentStats() ([]*types.Agent, error) {
 
 // GetBuildQueue returns the build queue
 func (c *Client) GetBuildQueue() ([]*types.Build, error) {
-	path := "/app/rest/buildQueue?fields=count,build(state,queuedDate,webUrl,statusText)"
+	path := "/app/rest/buildQueue?fields=count,build(*,tags(tag),triggered(*),properties(property),problemOccurrences(*,problemOccurrence(*)),testOccurrences(*,testOccurrence(*)),changes(*,change(*)))"
 	var builds struct {
 		Count int64
 		HREF  string

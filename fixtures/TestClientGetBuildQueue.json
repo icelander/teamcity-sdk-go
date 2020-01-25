@@ -2,8 +2,8 @@
     "count": 1,
     "build": [
         {
-            "id": 19,
-            "taskId": 19,
+            "id": 76,
+            "taskId": 76,
             "buildTypeId": "MattermostTeamcityPlugin_TestBuild",
             "buildTypeInternalId": "bt1",
             "state": "queued",
@@ -12,18 +12,18 @@
             "failedToStart": false,
             "personal": false,
             "history": false,
-            "href": "/app/rest/buildQueue/id:19",
-            "webUrl": "http://127.0.0.1:8111/viewQueued.html?itemId=19",
+            "href": "/app/rest/buildQueue/id:76",
+            "webUrl": "http://127.0.0.1:8111/viewQueued.html?itemId=76",
             "queuePosition": 1,
             "limitedChangesCount": 0,
-            "artifactsDirectory": "/opt/TeamCity/.BuildServer/system/artifacts/MattermostTeamcityPlugin/Test Build/19",
+            "artifactsDirectory": "/opt/TeamCity/.BuildServer/system/artifacts/MattermostTeamcityPlugin/Test Build/76",
             "links": {
                 "count": 1,
                 "link": [
                     {
                         "type": "webView",
-                        "url": "http://127.0.0.1:8111/viewQueued.html?itemId=19",
-                        "relativeUrl": "/viewQueued.html?itemId=19"
+                        "url": "http://127.0.0.1:8111/viewQueued.html?itemId=76",
+                        "relativeUrl": "/viewQueued.html?itemId=76"
                     }
                 ]
             },
@@ -36,17 +36,29 @@
                 "webUrl": "http://127.0.0.1:8111/viewType.html?buildTypeId=MattermostTeamcityPlugin_TestBuild"
             },
             "tags": {
-                "count": 0
+                "tag": []
             },
-            "waitReason": "Build settings have not been finalized",
-            "queuedDate": "20200122T040051+0000",
+            "startEstimate": "20200125T013820+0000",
+            "queuedDate": "20200125T013618+0000",
             "triggered": {
                 "type": "user",
-                "date": "20200122T040051+0000",
-                "user": {}
+                "date": "20200125T013618+0000",
+                "displayText": "you",
+                "rawValue": "##userId='1' type='user'",
+                "user": {
+                    "username": "paul",
+                    "name": "Paul Rothrock",
+                    "id": 1,
+                    "href": "/app/rest/users/id:1"
+                },
+                "properties": {
+                    "count": 2
+                }
             },
             "changes": {
-                "href": "/app/rest/changes?locator=build:(id:19)"
+                "count": 0,
+                "href": "/app/rest/changes?locator=build:(id:76)",
+                "change": []
             },
             "revisions": {
                 "count": 0,
@@ -56,13 +68,13 @@
                 "count": 0
             },
             "compatibleAgents": {
-                "href": "/app/rest/agents?locator=compatible:(build:(id:19))"
+                "href": "/app/rest/agents?locator=compatible:(build:(id:76))"
             },
             "artifacts": {
-                "href": "/app/rest/builds/id:19/artifacts/children/"
+                "href": "/app/rest/builds/id:76/artifacts/children/"
             },
             "properties": {
-                "count": 0
+                "property": []
             },
             "resultingProperties": {
                 "count": 49

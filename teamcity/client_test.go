@@ -39,7 +39,13 @@ func TestClientGetBuilds(t *testing.T) {
 func TestClientCancelBuild(t *testing.T) {
 	assert := assert.New(t)
 
-	client := NewTestClient(newResponse(``), nil)
+	jsonFixture, err := ioutil.ReadFile("../fixtures/TestClientCancelBuild.json")
+
+	if err != nil {
+		t.Fatal("Expected no error, got", err)
+	}
+
+	client := NewTestClient(newResponse(string(jsonFixture)), nil)
 
 	build, err := client.CancelBuild(1234, "comment string")
 
@@ -115,14 +121,17 @@ func TestClientGetBuildQueue(t *testing.T) {
 	client := NewTestClient(newResponse(string(jsonFixture)), nil)
 
 	builds, err := client.GetBuildQueue()
+	build := builds[0]
 	
 	if err != nil {
 		t.Fatal("Expected no error, got", err)
 	}
 
-	assert.Equal(builds[0].ID, int64(19))
-	assert.Equal(builds[0].BuildTypeID, "MattermostTeamcityPlugin_TestBuild")
-	assert.Equal(builds[0].QueuePosition, int64(1))
+	assert.Equal("Test Build", build.BuildType.Name)
+	assert.Equal("http://127.0.0.1:8111/viewQueued.html?itemId=76", build.WebURL)
+	assert.Equal("Mattermost Teamcity Plugin", build.BuildType.ProjectName)
+	assert.Equal(int64(1), build.QueuePosition)
+
 }
 
 func TestClientGetBuildType(t *testing.T) {
