@@ -8,7 +8,7 @@ import (
 )
 
 func (c *Client) GetBuildConfiguration(buildConfID string) (*types.BuildConfiguration, error) {
-	path := fmt.Sprintf("/app/rest/%s/buildTypes/id:%s", c.version, buildConfID)
+	path := fmt.Sprintf("/app/rest/buildTypes/id:%s", buildConfID)
 	var buildConfig *types.BuildConfiguration
 
 	err := c.doRetryRequest("GET", path, nil, &buildConfig)

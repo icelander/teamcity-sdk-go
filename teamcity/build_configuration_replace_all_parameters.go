@@ -8,7 +8,7 @@ import (
 )
 
 func (c *Client) ReplaceAllBuildConfigurationParameters(buildConfID string, parameters *types.Parameters) error {
-	path := fmt.Sprintf("/app/rest/%s/buildTypes/id:%s/parameters", c.version, buildConfID)
+	path := fmt.Sprintf("/app/rest/buildTypes/id:%s/parameters", buildConfID)
 	var parametersReturn *types.Parameters
 
 	err := c.doRetryRequest("PUT", path, parameters, &parametersReturn)

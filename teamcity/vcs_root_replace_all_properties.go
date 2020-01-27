@@ -8,7 +8,7 @@ import (
 )
 
 func (c *Client) ReplaceAllVcsRootProperties(VcsRootId string, properties *types.Properties) error {
-	path := fmt.Sprintf("/app/rest/%s/vcs-roots/id:%s/properties", c.version, VcsRootId)
+	path := fmt.Sprintf("/app/rest/vcs-roots/id:%s/properties", VcsRootId)
 	var propertiesReturn *types.Properties
 
 	err := c.doRetryRequest("PUT", path, properties, &propertiesReturn)

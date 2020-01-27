@@ -8,7 +8,7 @@ import (
 )
 
 func (c *Client) AttachBuildConfigurationVcsRoot(buildConfID string, vcsRoot *types.VcsRootEntry) error {
-	path := fmt.Sprintf("/app/rest/%s/buildTypes/id:%s/vcs-root-entries", c.version, buildConfID)
+	path := fmt.Sprintf("/app/rest/buildTypes/id:%s/vcs-root-entries", buildConfID)
 	var vcsRootReturn *types.VcsRootEntry
 
 	err := c.doRetryRequest("POST", path, vcsRoot, &vcsRootReturn)

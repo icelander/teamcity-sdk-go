@@ -5,6 +5,6 @@ import (
 )
 
 func (c *Client) DetachBuildConfigurationVcsRoot(buildConfID string, vcsRootID string) error {
-	path := fmt.Sprintf("/app/rest/%s/buildTypes/id:%s/vcs-root-entries/%s", c.version, buildConfID, vcsRootID)
+	path := fmt.Sprintf("/app/rest/buildTypes/id:%s/vcs-root-entries/%s", buildConfID, vcsRootID)
 	return c.doRetryRequest("DELETE", path, nil, nil)
 }

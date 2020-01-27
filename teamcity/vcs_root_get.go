@@ -7,7 +7,7 @@ import (
 )
 
 func (c *Client) GetVcsRoot(VcsRootId string) (*types.VcsRoot, error) {
-	path := fmt.Sprintf("/app/rest/%s/vcs-roots/id:%s", c.version, VcsRootId)
+	path := fmt.Sprintf("/app/rest/vcs-roots/id:%s", VcsRootId)
 	var vcs *types.VcsRoot
 
 	err := c.doRetryRequest("GET", path, nil, &vcs)

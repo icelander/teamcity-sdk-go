@@ -5,6 +5,6 @@ import (
 )
 
 func (c *Client) DeleteBuildConfigurationParameter(buildConfID, name string) error {
-	path := fmt.Sprintf("/app/rest/%s/buildTypes/id:%s/parameters/%s", c.version, buildConfID, name)
+	path := fmt.Sprintf("/app/rest/buildTypes/id:%s/parameters/%s", buildConfID, name)
 	return c.doRetryRequest("DELETE", path, nil, nil)
 }

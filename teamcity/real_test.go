@@ -12,7 +12,7 @@ import (
 var host = flag.String("host", "localhost", "hostname to test against")
 
 func (c *Client) WaitForReady() error {
-	path := fmt.Sprintf("/app/rest/%s/projects", c.version)
+	path := "/app/rest/projects"
 	var projects struct {
 		Count    int
 		Href     string

@@ -2,13 +2,12 @@ package teamcity
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/icelander/teamcity-sdk-go/types"
 )
 
 func (c *Client) CreateVcsRoot(vcs *types.VcsRoot) error {
-	path := fmt.Sprintf("/app/rest/%s/vcs-roots", c.version)
+	path := "/app/rest/vcs-roots"
 	var vcsReturn *types.VcsRoot
 
 	err := c.doRetryRequest("POST", path, vcs, &vcsReturn)

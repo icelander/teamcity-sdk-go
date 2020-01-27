@@ -2,13 +2,12 @@ package teamcity
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/icelander/teamcity-sdk-go/types"
 )
 
 func (c *Client) CreateBuildConfiguration(buildConfig *types.BuildConfiguration) error {
-	path := fmt.Sprintf("/app/rest/%s/buildTypes", c.version)
+	path := "/app/rest/buildTypes"
 	var buildConfigReturn *types.BuildConfiguration
 
 	err := c.doRetryRequest("POST", path, buildConfig, &buildConfigReturn)

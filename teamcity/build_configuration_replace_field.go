@@ -6,7 +6,7 @@ import (
 )
 
 func (c *Client) ReplaceBuildConfigurationField(buildConfID, name string, value string) error {
-	path := fmt.Sprintf("/app/rest/%s/buildTypes/id:%s/%s", c.version, buildConfID, name)
+	path := fmt.Sprintf("/app/rest/buildTypes/id:%s/%s", buildConfID, name)
 
 	fmt.Printf("Replace build config field %s\n", value)
 	body := bytes.NewBuffer([]byte(value))
