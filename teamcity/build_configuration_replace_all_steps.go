@@ -8,7 +8,7 @@ import (
 )
 
 func (c *Client) ReplaceAllBuildConfigurationSteps(buildConfID string, steps *types.BuildSteps) error {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/buildTypes/id:%s/steps", c.version, buildConfID)
+	path := fmt.Sprintf("/app/rest/%s/buildTypes/id:%s/steps", c.version, buildConfID)
 	var buildstepsReturn *types.BuildSteps
 
 	err := c.doRetryRequest("PUT", path, steps, &buildstepsReturn)

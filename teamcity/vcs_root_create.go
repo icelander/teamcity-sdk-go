@@ -8,7 +8,7 @@ import (
 )
 
 func (c *Client) CreateVcsRoot(vcs *types.VcsRoot) error {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/vcs-roots", c.version)
+	path := fmt.Sprintf("/app/rest/%s/vcs-roots", c.version)
 	var vcsReturn *types.VcsRoot
 
 	err := c.doRetryRequest("POST", path, vcs, &vcsReturn)

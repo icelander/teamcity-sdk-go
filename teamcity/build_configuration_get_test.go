@@ -25,13 +25,13 @@ func TestClientGetBuildConfigurationMock1(t *testing.T) {
 		"name":"Normal",
 		"projectName":"Single",
 		"projectId":"Single",
-		"href":"/httpAuth/app/rest/buildTypes/id:Single_Normal",
+		"href":"/app/rest/buildTypes/id:Single_Normal",
 		"webUrl":"http://teamcity:8111/viewType.html?buildTypeId=Single_Normal",
 		"project":{
 			"id":"Single",
 			"name":"Single",
 			"parentProjectId":"_Root",
-			"href":"/httpAuth/app/rest/projects/id:Single",
+			"href":"/app/rest/projects/id:Single",
 			"webUrl":"http://teamcity:8111/project.html?projectId=Single"
 		},
 		"vcs-root-entries":{
@@ -41,7 +41,7 @@ func TestClientGetBuildConfigurationMock1(t *testing.T) {
 				"vcs-root":{
 					"id":"Single_HttpsGithubComUmweltdkDockerNodeGit",
 					"name":"https://github.com/umweltdk/docker-node.git",
-					"href":"/httpAuth/app/rest/vcs-roots/id:Single_HttpsGithubComUmweltdkDockerNodeGit"
+					"href":"/app/rest/vcs-roots/id:Single_HttpsGithubComUmweltdkDockerNodeGit"
 				},
 				"checkout-rules":""
 			}]
@@ -142,7 +142,7 @@ func TestClientGetBuildConfigurationMock1(t *testing.T) {
 			"count":0
 		},
 		"builds":{
-			"href":"/httpAuth/app/rest/buildTypes/id:Single_Normal/builds/"
+			"href":"/app/rest/buildTypes/id:Single_Normal/builds/"
 		}}`), nil)
 	config, err := client.GetBuildConfiguration("999999")
 	require.NoError(t, err, "Expected no error")

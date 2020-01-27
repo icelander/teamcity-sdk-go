@@ -8,7 +8,7 @@ import (
 
 // GetProject gets a project based on the Project ID
 func (c *Client) GetProject(projectID string) (*types.Project, error) {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/projects/id:%s", c.version, projectID)
+	path := fmt.Sprintf("/app/rest/%s/projects/id:%s", c.version, projectID)
 	var project *types.Project
 
 	err := c.doRetryRequest("GET", path, nil, &project)
@@ -21,7 +21,7 @@ func (c *Client) GetProject(projectID string) (*types.Project, error) {
 
 // GetProjects returns all projects
 func (c *Client) GetProjects() ([]types.Project, error) {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/projects", c.version)
+	path := fmt.Sprintf("/app/rest/%s/projects", c.version)
 	var projects struct {
 		Count int64
 		HREF string
@@ -39,7 +39,7 @@ func (c *Client) GetProjects() ([]types.Project, error) {
 
 // GetShortProjects returns all projects in short form
 func (c *Client) GetShortProjects() ([]types.ProjectShort, error) {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/projects", c.version)
+	path := fmt.Sprintf("/app/rest/%s/projects", c.version)
 	var projects struct {
 		Count int64
 		HREF string

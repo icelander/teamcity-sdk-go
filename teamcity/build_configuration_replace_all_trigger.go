@@ -8,7 +8,7 @@ import (
 )
 
 func (c *Client) ReplaceAllBuildConfigurationTriggers(buildConfID string, triggers *types.BuildTriggers) error {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/buildTypes/id:%s/triggers", c.version, buildConfID)
+	path := fmt.Sprintf("/app/rest/%s/buildTypes/id:%s/triggers", c.version, buildConfID)
 	var buildTriggersReturn *types.BuildTriggers
 
 	err := c.doRetryRequest("PUT", path, triggers, &buildTriggersReturn)

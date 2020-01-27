@@ -8,7 +8,7 @@ import (
 )
 
 func (c *Client) CreateProject(project *types.Project) error {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/projects", c.version)
+	path := fmt.Sprintf("/app/rest/%s/projects", c.version)
 	var projectReturn *types.Project
 
 	err := c.doRetryRequest("POST", path, project, &projectReturn)

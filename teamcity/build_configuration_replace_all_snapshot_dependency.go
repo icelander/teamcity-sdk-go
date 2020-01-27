@@ -8,7 +8,7 @@ import (
 )
 
 func (c *Client) ReplaceAllBuildConfigurationSnapshotDependencies(buildConfID string, snapshotDependencies *types.BuildSnapshotDependencies) error {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/buildTypes/id:%s/snapshot-dependencies", c.version, buildConfID)
+	path := fmt.Sprintf("/app/rest/%s/buildTypes/id:%s/snapshot-dependencies", c.version, buildConfID)
 	var buildSnapshotDependenciesReturn *types.BuildSnapshotDependencies
 
 	err := c.doRetryRequest("PUT", path, snapshotDependencies, &buildSnapshotDependenciesReturn)

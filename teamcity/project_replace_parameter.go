@@ -9,7 +9,7 @@ import (
 )
 
 func (c *Client) ReplaceProjectParameter(projectID, name string, parameter *types.Parameter) error {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/projects/id:%s/parameters/%s", c.version, projectID, name)
+	path := fmt.Sprintf("/app/rest/%s/projects/id:%s/parameters/%s", c.version, projectID, name)
 	var parameterReturn *types.NamedParameter
 	actual := types.NamedParameter{
 		Name:      name,

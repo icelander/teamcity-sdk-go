@@ -8,7 +8,7 @@ import (
 )
 
 func (c *Client) CreateAgentPoolProjectAttachment(pool int, apa *types.AgentPoolAttachment) error {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/agentPools/id:%d/projects", c.version, pool)
+	path := fmt.Sprintf("/app/rest/%s/agentPools/id:%d/projects", c.version, pool)
 	var poolReturn *types.Project
 
 	err := c.doRetryRequest("POST", path, apa, &poolReturn)

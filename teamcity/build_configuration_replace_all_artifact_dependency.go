@@ -8,7 +8,7 @@ import (
 )
 
 func (c *Client) ReplaceAllBuildConfigurationArtifactDependencies(buildConfID string, artifactDependencies *types.BuildArtifactDependencies) error {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/buildTypes/id:%s/artifact-dependencies", c.version, buildConfID)
+	path := fmt.Sprintf("/app/rest/%s/buildTypes/id:%s/artifact-dependencies", c.version, buildConfID)
 	var buildArtifactDependenciesReturn *types.BuildArtifactDependencies
 
 	err := c.doRetryRequest("PUT", path, artifactDependencies, &buildArtifactDependenciesReturn)

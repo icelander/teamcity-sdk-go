@@ -9,7 +9,7 @@ import (
 )
 
 func (c *Client) ReplaceBuildConfigurationParameter(buildConfID, name string, parameter *types.Parameter) error {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/buildTypes/id:%s/parameters/%s", c.version, buildConfID, name)
+	path := fmt.Sprintf("/app/rest/%s/buildTypes/id:%s/parameters/%s", c.version, buildConfID, name)
 	var parameterReturn *types.NamedParameter
 	actual := types.NamedParameter{
 		Name:      name,

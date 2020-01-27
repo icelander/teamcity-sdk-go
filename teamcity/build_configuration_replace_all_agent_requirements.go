@@ -8,7 +8,7 @@ import (
 )
 
 func (c *Client) ReplaceAllBuildConfigurationAgentRequirements(buildConfID string, agentRequirements *types.BuildAgentRequirements) error {
-	path := fmt.Sprintf("/httpAuth/app/rest/%s/buildTypes/id:%s/agent-requirements", c.version, buildConfID)
+	path := fmt.Sprintf("/app/rest/%s/buildTypes/id:%s/agent-requirements", c.version, buildConfID)
 	var buildAgentRequirementsReturn *types.BuildAgentRequirements
 
 	err := c.doRetryRequest("PUT", path, agentRequirements, &buildAgentRequirementsReturn)
